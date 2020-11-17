@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 from loading_non_om_data import xre
 from loading_om_data import centurion, rise, equiton
@@ -29,17 +29,26 @@ date_range = pd.date_range(start_date, end_date, freq='D')
 reit_data = pd.DataFrame(index=date_range)
 
 
+# combine the DataFrames
+for df in df_list:
 
+    for column in df.columns:
 
+        reit_data[column] = df[column]
 
-# for df in df_list:
-#
-#     for column in df.columns:
-#
-#
-#         reit_data[df['CUSIP']]
+# remove unwanted days
+reit_data.dropna(how='any', axis=0, inplace=True)
 
+reit_data.plot()
+plt.show()
 
+reit_data_pct = reit_data.pct_change()
 
+cum_prod = np.cumprod(1 + reit_data_pct)
+
+cum_prod.plot()
+plt.show()
+
+print(cum_prod)
 
 
