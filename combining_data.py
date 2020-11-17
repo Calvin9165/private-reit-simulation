@@ -7,7 +7,7 @@ from loading_om_data import centurion, rise, equiton
 from cleaning_data_functions import start_date_finder, end_date_finder
 
 
-df_list = [xre, centurion]
+df_list = [xre, centurion, equiton]
 
 starting = []
 ending = []
