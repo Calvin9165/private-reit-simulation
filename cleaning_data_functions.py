@@ -4,15 +4,20 @@ import pandas_market_calendars as mcal
 
 
 def clean_om_funds_from_dataphile(df, remove_cols):
+
+    # set index
+    df['Date'] = pd.to_datetime(df['Price Date'], dayfirst=False)
+    df.set_index(keys='Date', inplace=True)
+    df.sort_index(ascending=True, inplace=True)
+
+    # rename the price column to whatever security we're using
+    df.rename({'Last Trade Price': df['CUSIP'][0]}, axis=1, inplace=True)
+
+    # remove all of the excess columns - we can specify which ones we want to remove
     df.drop(labels=remove_cols, axis=1, inplace=True)
 
     # remove prices with none values (i.e. weekends)
     df.dropna(how='any', axis=0, inplace=True)
-
-    # set index
-    df['Price Date'] = pd.to_datetime(df['Price Date'], dayfirst=False)
-    df.set_index(keys='Price Date', inplace=True)
-    df.sort_index(ascending=True, inplace=True)
 
     return df
 

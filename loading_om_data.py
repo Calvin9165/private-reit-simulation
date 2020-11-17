@@ -20,7 +20,11 @@ cols_to_drop = {
     'Update Date',
     'Trade Volume',
     'Price Status',
-    'Statement Price Status'
+    'Statement Price Status',
+    'Funds',
+    'Market',
+    'CUSIP',
+    'Price Date'
 }
 
 # adjusted DataFrames
