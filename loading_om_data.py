@@ -16,7 +16,6 @@ rise.set_index('Date', inplace=True)
 rise.rename({'Total Return': rise['CUSIP'][0]}, axis=1, inplace=True)
 rise.drop({'CUSIP', 'NAV Growth', 'Dividend Growth'}, axis=1, inplace=True)
 
-
 equiton = pd.read_csv('Equiton Monthly Returns.csv')
 equiton['Date'] = pd.to_datetime(equiton['Date'], dayfirst=False)
 equiton.set_index('Date', inplace=True)

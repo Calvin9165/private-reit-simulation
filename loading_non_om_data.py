@@ -6,3 +6,5 @@ xre['Date'] = pd.to_datetime(xre['Date'], dayfirst=False)
 xre.set_index(keys='Date', inplace=True)
 
 xre.rename({'Price': 'XRE'}, axis=1, inplace=True)
+
+xre = xre.pct_change()

@@ -4,10 +4,10 @@ import numpy as np
 
 from loading_non_om_data import xre
 from loading_om_data import centurion, rise, equiton
-from cleaning_data_functions import start_date_finder, end_date_finder
+from cleaning_data_functions import start_date_finder, end_date_finder, expected_index
+import pandas_market_calendars as mcal
 
-
-df_list = [xre, centurion, equiton]
+df_list = [xre, centurion, equiton, rise]
 
 starting = []
 ending = []
@@ -36,19 +36,16 @@ for df in df_list:
 
         reit_data[column] = df[column]
 
-# remove unwanted days
+
+reit_data.fillna(0, axis=0, inplace=True)
 reit_data.dropna(how='any', axis=0, inplace=True)
 
-reit_data.plot()
+trading_days = expected_index(reit_data, exchange='TSX')
+reit_data = reit_data.reindex(trading_days)
+
+reit_data
+
+test = np.cumprod(1 + reit_data)
+test.plot()
 plt.show()
-
-reit_data_pct = reit_data.pct_change()
-
-cum_prod = np.cumprod(1 + reit_data_pct)
-
-cum_prod.plot()
-plt.show()
-
-print(cum_prod)
-
 
