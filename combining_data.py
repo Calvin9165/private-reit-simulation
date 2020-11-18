@@ -7,7 +7,7 @@ from loading_om_data import centurion, rise, equiton
 from cleaning_data_functions import start_date_finder, end_date_finder, expected_index
 import pandas_market_calendars as mcal
 
-df_list = [xre, centurion, equiton, rise]
+df_list = [xre, centurion, rise]
 
 starting = []
 ending = []
@@ -37,15 +37,24 @@ for df in df_list:
         reit_data[column] = df[column]
 
 
-reit_data.fillna(0, axis=0, inplace=True)
-reit_data.dropna(how='any', axis=0, inplace=True)
+reit_data['RBS201'].dropna(how='any', inplace=True)
 
-trading_days = expected_index(reit_data, exchange='TSX')
-reit_data = reit_data.reindex(trading_days)
+test = np.cumprod(1 + reit_data['RBS201'])
+test.plot()
+plt.show()
+
+
+
+reit_data.fillna(0, axis=0, inplace=True)
 
 reit_data
+
+# test = np.cumprod(1 + reit_data)
+# test.plot()
+# plt.show()
+
+reit_data['avg'] = reit_data.mean(axis=1)
 
 test = np.cumprod(1 + reit_data)
 test.plot()
 plt.show()
-

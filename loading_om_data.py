@@ -23,7 +23,3 @@ equiton.rename({'Total Return': equiton['CUSIP'][0]}, axis=1, inplace=True)
 equiton.drop({'CUSIP', 'NAV Growth', 'Distribution Growth'}, axis=1, inplace=True)
 equiton = clean_str_to_float(df_to_clean=equiton, chars_to_remove=['%'])
 equiton /= 100
-
-print(equiton.head())
-
-test = np.cumprod(1 + equiton['EQP105'])
