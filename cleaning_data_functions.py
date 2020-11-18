@@ -71,3 +71,23 @@ def expected_index(df, exchange='nyse'):
     exchange_dates = exchange_dates.schedule(start_date=df.index[0], end_date=df.index[-1])
 
     return exchange_dates.index
+
+def clean_str_to_float(df_to_clean, chars_to_remove):
+    """
+    :param df_to_clean: the pandas DataFrame we want to clean
+    :param chars_to_remove: a list of desired characters we want to remove
+
+    :return: a DataFrame with none of the desired characters and each element within the DataFrame converted to float
+
+    """
+
+    # goes through each column present
+    for column in df_to_clean.columns:
+
+        # goes through each character present in chars_to_remove
+        for character in chars_to_remove:
+            # removes characters from data that are present in comm_chars
+            df_to_clean[column] = df_to_clean[column].apply(lambda x: str(x).replace(character, ''))
+
+    # convert all columns to float
+    return df_to_clean.apply(pd.to_numeric)
