@@ -48,3 +48,6 @@ reit_data['composite index'] = reit_data.mean(axis=1)
 test = np.cumprod(1 + reit_data)
 test.plot()
 plt.show()
+
+composite_reits = reit_data['composite index'].pct_change()
+composite_reits.to_csv('composite reit returns.csv')
