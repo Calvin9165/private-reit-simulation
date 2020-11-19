@@ -39,21 +39,11 @@ for df in df_list:
 
 reit_data['RBS201'].dropna(how='any', inplace=True)
 
-test = np.cumprod(1 + reit_data['RBS201'])
-test.plot()
-plt.show()
-
-
-
 reit_data.fillna(0, axis=0, inplace=True)
+reit_data['EQP105'] = equiton
+reit_data['EQP105'].loc[equiton.index[0]:equiton.index[-1]].fillna(0, inplace=True)
 
-reit_data
-
-# test = np.cumprod(1 + reit_data)
-# test.plot()
-# plt.show()
-
-reit_data['avg'] = reit_data.mean(axis=1)
+reit_data['composite index'] = reit_data.mean(axis=1)
 
 test = np.cumprod(1 + reit_data)
 test.plot()
