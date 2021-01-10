@@ -7,7 +7,7 @@ from loading_om_data import centurion, rise, equiton
 from cleaning_data_functions import start_date_finder, end_date_finder, expected_index
 import pandas_market_calendars as mcal
 
-df_list = [xre, centurion, rise]
+df_list = [centurion, rise, equiton]
 
 starting = []
 ending = []
@@ -49,5 +49,8 @@ test = np.cumprod(1 + reit_data)
 test.plot()
 plt.show()
 
-composite_reits = reit_data['composite index']
+reit_data.rename({'composite index': 'composite private reit'}, axis=1, inplace=True)
+composite_reits = reit_data['composite private reit']
+
+
 composite_reits.to_csv('composite reit returns.csv')
